@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:thread_app_sample/feed_model.dart';
+import 'package:thread_app_sample/thread_feed_write_controller.dart';
+import 'package:thread_app_sample/thread_write_page.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -23,57 +27,73 @@ class Home extends StatelessWidget {
   }
 
   Widget _quickFeedWriteView() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Image.asset(
-              'assets/images/profile_image.png',
-              width: 50,
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'Kimsungduck',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff262626),
-                    ),
-                  ),
-                  Text(
-                    '새로운 소식이 있나요?',
-                    style: TextStyle(color: Color(0xff9a9a9a), fontSize: 14),
-                  ),
-                ],
+    return GestureDetector(
+      onTap: () async {
+        var result = await Get.to<FeedModel?>(ThreadWritePage(),
+            binding: BindingsBuilder(() {
+          Get.put(ThreadFeedWriteController());
+        }));
+        if (result != null) {
+          print(result.id);
+          print(result.contents);
+          print(result.images.length);
+        }
+      },
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Image.asset(
+                'assets/images/profile_image.png',
+                width: 50,
               ),
-            )
-          ],
-        ),
-        SizedBox(height: 15),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 60),
-            GestureDetector(
-                child: Image.asset('assets/images/photo_icon.png', width: 30)),
-            SizedBox(width: 10),
-            GestureDetector(
-                child: Image.asset('assets/images/photo_icon.png', width: 30)),
-            SizedBox(width: 10),
-            GestureDetector(
-                child: Image.asset('assets/images/gif_icon.png', width: 30)),
-            SizedBox(width: 10),
-            GestureDetector(
-                child: Image.asset('assets/images/mic_icon.png', width: 30)),
-            SizedBox(width: 10),
-            GestureDetector(
-                child: Image.asset('assets/images/align_icon.png', width: 30)),
-          ],
-        )
-      ],
+              SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Kimsungduck',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff262626),
+                      ),
+                    ),
+                    Text(
+                      '새로운 소식이 있나요?',
+                      style: TextStyle(color: Color(0xff9a9a9a), fontSize: 14),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+          SizedBox(height: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: 60),
+              GestureDetector(
+                  child:
+                      Image.asset('assets/images/photo_icon.png', width: 30)),
+              SizedBox(width: 10),
+              GestureDetector(
+                  child:
+                      Image.asset('assets/images/photo_icon.png', width: 30)),
+              SizedBox(width: 10),
+              GestureDetector(
+                  child: Image.asset('assets/images/gif_icon.png', width: 30)),
+              SizedBox(width: 10),
+              GestureDetector(
+                  child: Image.asset('assets/images/mic_icon.png', width: 30)),
+              SizedBox(width: 10),
+              GestureDetector(
+                  child:
+                      Image.asset('assets/images/align_icon.png', width: 30)),
+            ],
+          )
+        ],
+      ),
     );
   }
 
